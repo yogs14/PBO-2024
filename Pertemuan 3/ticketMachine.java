@@ -18,7 +18,7 @@ public class TicketMachine
     }
 
     /**
-     * @Return The price of a ticket.
+     * Return The price of a ticket.
      */
     public int getPrice()
     {
@@ -44,8 +44,7 @@ public class TicketMachine
             balance = balance + amount;
         }
         else {
-            System.out.println("Use a positive amount rather than: " +
-                               amount);
+            System.out.println("Use a positive amount rather than: " + amount);
         }
     }
 
@@ -67,13 +66,11 @@ public class TicketMachine
 
             // Update the total collected with the price.
             total = total + price;
-            // Reduce the balance by the prince.
+            // Reduce the balance by the price.
             balance = balance - price;
         }
         else {
-            System.out.println("You must insert at least: " +
-                               (price - balance) + " more cents.");
-                    
+            System.out.println("You must insert at least: " + (price - balance) + " more cents.");
         }
     }
 
@@ -83,14 +80,12 @@ public class TicketMachine
      */
     public int refundBalance()
     {
-        int amountToRefund;
-        amountToRefund = balance;
+        int amountToRefund = balance;
         balance = 0;
         return amountToRefund;
     }
-}
 
- public static void main(String[] args) {
+    public static void main(String[] args) {
         // Create a TicketMachine with a ticket price of 100 cents (1 dollar).
         TicketMachine machine = new TicketMachine(100);
 
