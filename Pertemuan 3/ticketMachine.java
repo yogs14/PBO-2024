@@ -89,3 +89,23 @@ public class TicketMachine
         return amountToRefund;
     }
 }
+
+ public static void main(String[] args) {
+        // Create a TicketMachine with a ticket price of 100 cents (1 dollar).
+        TicketMachine machine = new TicketMachine(100);
+
+        // Test inserting money and printing a ticket.
+        System.out.println("Ticket price: " + machine.getPrice() + " cents");
+        machine.insertMoney(50);
+        System.out.println("Current balance: " + machine.getBalance() + " cents");
+        machine.printTicket(); // Not enough money
+
+        machine.insertMoney(50); // Add more money
+        System.out.println("Current balance: " + machine.getBalance() + " cents");
+        machine.printTicket(); // Should print the ticket
+
+        // Refund any remaining balance.
+        int refund = machine.refundBalance();
+        System.out.println("Refunded: " + refund + " cents");
+    }
+}
