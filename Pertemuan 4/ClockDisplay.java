@@ -1,142 +1,68 @@
-/* public class ClockDisplay {
-    private numberDisplay hours;
-    private numberDisplay minutes;
-    private String displayString;    // simulates the actual display
-}
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public ClockDisplay() {
-    hours = new NumberDisplay(24);
-    minutes = new NumberDisplay(60);
-    updateDisplay();
-}
-
-public ClockDisplay(int hour, int minute) {
-    hours = new NumberDisplay(24);
-    minutes = new NumberDisplay(60);
-    setTime(hour, minute);
-}
-
-public void timeTick() {
-    minutes.increment();
-    if(minutes.getValue() == 0) {  // it just rolled over!
-        hours.increment();
-    }
-    updateDisplay();
-}
-
-public void setTime(int hour, int minute) {
-    hours.setValue(hour);
-    minutes.setValue(minute);
-    updateDisplay();
-}
-
-public String getTime() {
-    return displayString;
-}
-
-private void updateDisplay() {
-    displayString = hours.getDisplayValue() + ":" + 
-                    minutes.getDisplayValue();
-}
-
-public class NumberDisplay {
-    private int limit;
-    private int value;
-
-    public NumberDisplay(int rollOverLimit) {
-        limit = rollOverLimit;
-        value = 0;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public String getDisplayValue() {
-        if(value < 10) {
-            return "0" + value;
-        }
-        else {
-            return "" + value;
-        }
-    }
-
-    public void setValue(int replacementValue) {
-        if((replacementValue >= 0) && (replacementValue < limit)) {
-            value = replacementValue;
-        }
-        else {
-            System.out.println("Error: invalid value");
-        }
-
-    }
-
-    public void increment() {
-        value = (value + 1) % limit;
-    }
-}
-
-public class TestClock {
-    public static void main(String[] args) {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-    }
-
-    public static void testTimeTick() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.timeTick();
-        System.out.println(clock.getTime());
-    }
-
-    public static void testSetTime() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.setTime(12, 34);
-        System.out.println(clock.getTime());
-    }
-
-    public static void testSetTimeInvalid() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.setTime(25, 61);
-        System.out.println(clock.getTime());
-    }
-
-    public static void testTimeTickRollover() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        for(int i = 0; i < 100; i++) {
-            clock.timeTick();
-            System.out.println(clock.getTime());
-        }
-    }
-
-    public static void testTimeTickRollovermidnight() {
-        ClockDisplay clock = new ClockDisplay(23, 58);
-        for(int i = 0; i < 5; i++) {
-            clock.timeTick();
-            System.out.println(clock.getTime());
-        }
-    }
-}
-*/
-
-public class ClockDisplay {
+public class ClockDisplay extends JFrame {
     private NumberDisplay hours;
     private NumberDisplay minutes;
+    private JLabel clockLabel;
     private String displayString;
 
     public ClockDisplay() {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
         updateDisplay();
+        setupUI();
+        startClock();
     }
 
     public ClockDisplay(int hour, int minute) {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
+        setupUI();
+        startClock();
+    }
+
+    private void setupUI() {
+        // Set up the frame (the window)
+        setTitle("Digital Clock");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // Create a label to display the time
+        clockLabel = new JLabel(displayString, SwingConstants.CENTER);
+        clockLabel.setFont(new Font("Monospaced", Font.BOLD, 48));
+        clockLabel.setForeground(Color.CYAN);
+        add(clockLabel, BorderLayout.CENTER);
+
+        // Add the current date at the top
+        JLabel dateLabel = new JLabel("TUE, 24 SEP, 2024", SwingConstants.CENTER);
+        dateLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
+        dateLabel.setForeground(Color.CYAN);
+        add(dateLabel, BorderLayout.NORTH);
+
+        // Make the window visible
+        setVisible(true);
+    }
+
+    private void startClock() {
+        // Create a timer to update the time every second
+        Timer timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                timeTick();
+                clockLabel.setText(displayString); // Update the label with the new time
+            }
+        });
+        timer.start();
     }
 
     public void timeTick() {
         minutes.increment();
-        if(minutes.getValue() == 0) {
+        if (minutes.getValue() == 0) {
             hours.increment();
         }
         updateDisplay();
@@ -157,11 +83,8 @@ public class ClockDisplay {
     }
 
     public static void main(String[] args) {
-        TestClock.testTimeTick();
-        TestClock.testSetTime();
-        TestClock.testSetTimeInvalid();
-        TestClock.testTimeTickRollover();
-        TestClock.testTimeTickRolloverMidnight();
+        // Initialize the clock with default time (23:59 for example)
+        new ClockDisplay(23, 59);
     }
 }
 
@@ -183,49 +106,13 @@ class NumberDisplay {
     }
 
     public void setValue(int replacementValue) {
-        if(replacementValue >= 0 && replacementValue < limit) {
+        if (replacementValue >= 0 && replacementValue < limit) {
             value = replacementValue;
         }
     }
 
     public void increment() {
         value = (value + 1) % limit;
-    }
-}
-
-class TestClock {
-    public static void testTimeTick() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.timeTick();
-        System.out.println(clock.getTime());
-    }
-
-    public static void testSetTime() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.setTime(12, 34);
-        System.out.println(clock.getTime());
-    }
-
-    public static void testSetTimeInvalid() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        clock.setTime(25, 61);
-        System.out.println(clock.getTime());
-    }
-
-    public static void testTimeTickRollover() {
-        ClockDisplay clock = new ClockDisplay(23, 59);
-        for(int i = 0; i < 100; i++) {
-            clock.timeTick();
-            System.out.println(clock.getTime());
-        }
-    }
-
-    public static void testTimeTickRolloverMidnight() {
-        ClockDisplay clock = new ClockDisplay(23, 58);
-        for(int i = 0; i < 5; i++) {
-            clock.timeTick();
-            System.out.println(clock.getTime());
-        }
     }
 }
 
