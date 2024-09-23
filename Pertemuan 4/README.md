@@ -74,12 +74,3 @@ Kode di atas mengimplementasikan beberapa konsep utama dalam **Object-Oriented P
    ```
 
    Kelas `ClockDisplay` hanya menggunakan fungsi `increment()` tanpa perlu tahu bagaimana angka tersebut di-increment di dalam kelas `NumberDisplay`.
-
-### Kesimpulan:
-
-- **Encapsulation:** Implementasi `private` pada atribut dan metode getter/setter.
-- **Inheritance:** Kelas `ClockDisplay` mewarisi dari `JFrame`.
-- **Polymorphism:** Kelas `ClockDisplay` memanfaatkan polymorphism dari `JFrame`.
-- **Abstraction:** Detail implementasi perhitungan waktu disembunyikan dalam kelas `NumberDisplay`, pengguna hanya menggunakan metode yang tersedia.
-
-Dengan konsep-konsep OOP tersebut, program dapat lebih terstruktur, mudah dipahami, dan mudah dikelola.
