@@ -45,3 +45,9 @@ Berikut adalah penjelasan fitur-fitur baru yang telah ditambahkan dalam implemen
    - **Deskripsi**: Sistem sekarang dapat mengenali lebih banyak variasi untuk perintah keluar seperti "quit" dan "exit", sehingga pengguna dapat menghentikan interaksi dengan lebih nyaman.
    - **Fungsi Lama dan Baru**: `if (input.equals("quit") || input.equals("exit"))`
    - **Manfaat**: Pengguna memiliki lebih banyak fleksibilitas dalam cara mereka ingin mengakhiri percakapan.
+
+### Demo
+
+https://github.com/user-attachments/assets/835bea9e-99e7-46c6-b212-f8b4fdc98b1a
+
+
