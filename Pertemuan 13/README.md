@@ -1,3 +1,85 @@
+Abstract Class "Makhluk Hidup"
+---
+
+### Penjelasan:
+
+1. **Abstract Class `MakhlukHidup`**:
+    - **Deklarasi Abstract Class**: `abstract class MakhlukHidup` mendefinisikan sebuah abstract class yang tidak bisa diinstansiasi secara langsung.
+    - **Metode Abstract `bernafas()`**: Metode ini dideklarasikan tanpa implementasi. Setiap subclass harus mengimplementasikan metode ini sesuai dengan cara bernafas masing-masing.
+    - **Metode Konkret `makan()`**: Metode ini memiliki implementasi yang sama untuk semua subclass. Semua makhluk hidup makan, jadi kita bisa memberikan implementasi umum di abstract class.
+
+2. **Subclass `Manusia`**:
+    - **Mengoverride Metode `bernafas()`**: `Manusia` mengimplementasikan metode `bernafas()` dengan cara yang spesifik, yaitu bernafas dengan paru-paru.
+
+3. **Subclass `Hewan`**:
+    - **Mengoverride Metode `bernafas()`**: `Hewan` mengimplementasikan metode `bernafas()` dengan cara yang berbeda, yaitu bisa bernafas dengan paru-paru atau insang, tergantung jenis hewannya.
+
+4. **Subclass `Tumbuhan`**:
+    - **Mengoverride Metode `bernafas()`**: `Tumbuhan` mengimplementasikan metode `bernafas()` dengan cara bernafas melalui stomata.
+
+5. **Main Class untuk Menjalankan Program**:
+    - **Instansiasi Objek**: Membuat objek dari subclass `Manusia`, `Hewan`, dan `Tumbuhan`.
+    - **Pemanggilan Metode**: Memanggil metode `bernafas()` dan `makan()` pada setiap objek untuk menunjukkan bagaimana masing-masing subclass mengimplementasikan metode `bernafas()` dan menggunakan metode `makan()` yang diwariskan.
+
+### Contoh Kode
+
+```java
+// Abstract class MakhlukHidup
+abstract class MakhlukHidup {
+    // Abstract method
+    abstract void bernafas();
+    
+    // Concrete method
+    void makan() {
+        System.out.println("Makhluk hidup sedang makan.");
+    }
+}
+
+// Subclass Manusia
+class Manusia extends MakhlukHidup {
+    @Override
+    void bernafas() {
+        System.out.println("Manusia bernafas dengan paru-paru.");
+    }
+}
+
+// Subclass Hewan
+class Hewan extends MakhlukHidup {
+    @Override
+    void bernafas() {
+        System.out.println("Hewan bernafas dengan paru-paru atau insang.");
+    }
+}
+
+// Subclass Tumbuhan
+class Tumbuhan extends MakhlukHidup {
+    @Override
+    void bernafas() {
+        System.out.println("Tumbuhan bernafas melalui stomata.");
+    }
+}
+
+// Main class untuk menjalankan program
+public class Main {
+    public static void main(String[] args) {
+        MakhlukHidup manusia = new Manusia();
+        MakhlukHidup hewan = new Hewan();
+        MakhlukHidup tumbuhan = new Tumbuhan();
+        
+        manusia.bernafas();
+        manusia.makan();
+        
+        hewan.bernafas();
+        hewan.makan();
+        
+        tumbuhan.bernafas();
+        tumbuhan.makan();
+    }
+}
+```
+---
+
+
 Simulation of Fox and Rabbit
 ---
 
