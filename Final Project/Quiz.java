@@ -124,16 +124,25 @@ public class Quiz implements ActionListener {
         if (index >= total_questions) {
             results();
         } else {
+            if (timer != null) {
+                timer.stop(); 
+            }
+            enableButtons(); 
+            seconds = 10; 
+            seconds_left.setText(String.valueOf(seconds)); 
+
             textfield.setText("Question " + (index + 1));
             textarea.setText(questions[index]);
             answer_labelA.setText(options[index][0]);
             answer_labelB.setText(options[index][1]);
             answer_labelC.setText(options[index][2]);
             answer_labelD.setText(options[index][3]);
+
             timer = new Timer(1000, e -> {
                 seconds--;
                 seconds_left.setText(String.valueOf(seconds));
                 if (seconds <= 0) {
+                    timer.stop();
                     displayAnswer();
                 }
             });
@@ -143,6 +152,7 @@ public class Quiz implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        disableButtons(); 
         timer.stop();
         if (e.getSource() == buttonA) answer = 'A';
         if (e.getSource() == buttonB) answer = 'B';
@@ -154,6 +164,7 @@ public class Quiz implements ActionListener {
     }
 
     public void displayAnswer() {
+        disableButtons();
         if (answers[index] != 'A') answer_labelA.setForeground(Color.RED);
         if (answers[index] != 'B') answer_labelB.setForeground(Color.RED);
         if (answers[index] != 'C') answer_labelC.setForeground(Color.RED);
@@ -171,16 +182,22 @@ public class Quiz implements ActionListener {
         pause.start();
     }
 
-    public void results() {
-        textfield.setText("Results");
-        textarea.setText("Correct: " + correct_guesses + "/" + total_questions);
-        answer_labelA.setText("");
-        answer_labelB.setText("");
-        answer_labelC.setText("");
-        answer_labelD.setText("");
+    public void enableButtons() {
+        buttonA.setEnabled(true);
+        buttonB.setEnabled(true);
+        buttonC.setEnabled(true);
+        buttonD.setEnabled(true);
+    }
+
+    public void disableButtons() {
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
+    }
+
+    public void results() {
+        JOptionPane.showMessageDialog(frame, "Correct: " + correct_guesses + "/" + total_questions);
+        System.exit(0);
     }
 }
